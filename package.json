@@ -1,0 +1,46 @@
+{
+  "name": "xueyan-react-content",
+  "version": "1.0.0",
+  "author": "xueyan-site <xueyan@xueyan.site>",
+  "license": "LGPL-3.0",
+  "description": "react content component",
+  "main": "dist/node",
+  "types": "dist/def",
+  "module": "dist/web",
+  "keywords": [
+    "content",
+    "react",
+    "xueyan",
+    "component",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xueyan-site/xueyan-react-content.git"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "start": "xt start",
+    "build": "xt build"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.0",
+    "xueyan-react-icon": "^1.1.2",
+    "xueyan-react-link": "^1.0.1",
+    "xueyan-react-popover": "^1.2.0",
+    "xueyan-react-style": "^1.2.0",
+    "xueyan-react-transition": "^1.0.6"
+  },
+  "peerDependencies": {
+    "classnames": "^2.3.0",
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": ">=16.8.0",
+    "classnames": "^2.3.0",
+    "react": ">=16.8.0",
+    "typescript": "^4.0.0"
+  }
+}

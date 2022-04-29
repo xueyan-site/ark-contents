@@ -1,0 +1,10 @@
+.xrshrink {
+  &.side {
+    height: 0;
+    overflow: hidden;
+  }
+  &.active {
+    overflow: hidden;
+    transition: height .3s;
+  }
+}
