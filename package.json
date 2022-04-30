@@ -1,6 +1,6 @@
 {
   "name": "xueyan-react-content",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "react content component",
@@ -31,7 +31,7 @@
     "xueyan-react-link": "^1.0.1",
     "xueyan-react-popover": "^1.2.0",
     "xueyan-react-style": "^1.2.0",
-    "xueyan-react-transition": "^1.0.6"
+    "xueyan-react-transition": "^1.0.8"
   },
   "peerDependencies": {
     "classnames": "^2.3.0",

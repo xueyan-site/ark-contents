@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
-import { loadShrinks } from './utils'
+import { loadExpands } from './utils'
 import { ContentItem } from './content-item'
 import { useContentOptions, useContentActiveInfo } from './hooks'
 import type { ContentOnChange, ContentOnClick, ContentOption, ContentOptionStruct } from './types'
@@ -38,7 +38,7 @@ export const Content = forwardRef<ContentRef, ContentProps<any>>(({
   ...props
 }, ref) => {
   const rootRef = useRef<HTMLDivElement>(null)
-  const shrinks = useMemo(() => loadShrinks(name), [name])
+  const expands = useMemo(() => loadExpands(name), [name])
   const options = useContentOptions(props.options)
   const [active, actives] = useContentActiveInfo(value, options)
 
@@ -61,7 +61,7 @@ export const Content = forwardRef<ContentRef, ContentProps<any>>(({
           active={active}
           options={options}
           actives={actives}
-          shrinks={shrinks}
+          expands={expands}
           onClick={onClick}
           onChange={onChange}
         />

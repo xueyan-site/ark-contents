@@ -41,15 +41,15 @@ export function parseContentOptions<T >(
   }
 }
 
-function getShrinkKey(name: string = '') {
+function getExpandKey(name: string = '') {
   return location.pathname + name
 }
 
-export function loadShrinks(
+export function loadExpands(
   name: string | undefined
 ): Record<string, boolean> {
   try {
-    const key = getShrinkKey(name)
+    const key = getExpandKey(name)
     const data = localStorage.getItem(key)
     if (data && typeof data === 'string') {
       return JSON.parse(data)
@@ -62,12 +62,12 @@ export function loadShrinks(
   }
 }
 
-export function saveShrinks(
+export function saveExpands(
   name: string | undefined, 
   data?: Record<string, boolean>
 ): boolean {
   try {
-    const key = getShrinkKey(name)
+    const key = getExpandKey(name)
     if (data) {
       localStorage.setItem(key, JSON.stringify(data))
     } else {
@@ -80,14 +80,14 @@ export function saveShrinks(
   }
 }
 
-export function saveShrink<T>(
+export function saveExpand<T>(
   name: string | undefined,
   option: ContentProOption<T>,
-  shrink: boolean
+  expand: boolean
 ) {
-  const shrinks = loadShrinks(name)
-  shrinks[String(option.value)] = shrink
+  const expands = loadExpands(name)
+  expands[String(option.value)] = expand
 
-  console.log(shrinks)
-  return saveShrinks(name, shrinks)
+  console.log(expands)
+  return saveExpands(name, expands)
 }

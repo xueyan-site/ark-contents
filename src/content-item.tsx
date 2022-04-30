@@ -3,14 +3,14 @@ import cn from 'classnames'
 import styles from './content-item.scss'
 import { Link } from 'xueyan-react-link'
 import { DirectionIcon } from 'xueyan-react-icon'
-import { Shrink } from './shrink'
+import { ExpandTransition } from 'xueyan-react-transition'
+import { saveExpand } from './utils'
 import type { 
   ContentOnChange, 
   ContentOnClick, 
   ContentOptionStruct, 
   ContentProOption 
 } from './types'
-import { saveShrink } from './utils'
 
 export function ContentItem<T>({
   name,
@@ -18,7 +18,7 @@ export function ContentItem<T>({
   active,
   options,
   actives,
-  shrinks,
+  expands,
   onClick,
   onChange,
   ...props
@@ -29,41 +29,50 @@ export function ContentItem<T>({
   active?: ContentProOption<T>
   options: ContentOptionStruct<T>
   actives: ContentProOption<T>[]
-  shrinks: Record<string, boolean>
+  expands: Record<string, boolean>
   onClick?: ContentOnClick<T>
   onChange?: ContentOnChange<T>
 }) {
-  const [shrink, setShrink] = useState(shrinks[String(option.value)])
   const disabled = option.disabled || props.disabled
   const level = option.parents.length
   const isActive = active === option
   const inActive = actives[level] === option
   const hasChildren = option.children.length > 0
+  const [expand, setExpand] = useState(
+    inActive || expands[String(option.value)]
+  )
 
   return (
     <Fragment>
       <div
         className={cn(styles.xrcontentitem, {
-          [styles.active]: inActive && (isActive || shrink),
+          [styles.active]: inActive && (isActive || expand),
           [styles.disabled]: disabled,
         })}
         style={{ 
           paddingLeft: level * 12
         }}
         onClick={hasChildren ? (() => {
-          setShrink(!shrink)
-          saveShrink(name, option, !shrink)
+          setExpand(!expand)
+          saveExpand(name, option, !expand)
         }) : undefined}
       >
         <div className={styles.icon}>
           {hasChildren ? (
-            <DirectionIcon direction={shrink ? 'right' : 'bottom'} />
+            <DirectionIcon direction={expand ? 'bottom' : 'right'} />
           ) : (
             <div className={styles.line}/>
           )}
         </div>
         <Link
           {...option}
+          ellipsis={{
+            ...option.ellipsis,
+            popover: {
+              ...option.ellipsis?.popover,
+              keepStyle: 1,
+            }
+          }}
           className={cn(styles.label, option.className)}
           onClick={event => {
             if (option.onClick) {
@@ -82,7 +91,7 @@ export function ContentItem<T>({
         </Link>
       </div>
       {hasChildren && (
-        <Shrink value={shrink}>
+        <ExpandTransition value={expand}>
           {option.children.map((option, index) => (
             <ContentItem
               key={index}
@@ -92,12 +101,12 @@ export function ContentItem<T>({
               active={active}
               options={options}
               actives={actives}
-              shrinks={shrinks}
+              expands={expands}
               onClick={onClick}
               onChange={onChange}
             />
           ))}
-        </Shrink>
+        </ExpandTransition>
       )}
     </Fragment>
   )
