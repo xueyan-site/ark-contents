@@ -6,7 +6,7 @@ module.exports = {
     ast: 'pub/ast',
     com: 'pub/com',
     utl: 'pub/utl',
-    'xueyan-react-content': '../src'
+    'xueyan-react-contents': '../src'
   },
   module: {
     externals: {

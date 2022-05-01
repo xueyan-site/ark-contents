@@ -1,10 +1,10 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import { loadExpands } from './utils'
-import { ContentItem } from './content-item'
-import { useContentOptions, useContentActiveInfo } from './hooks'
-import type { ContentOnChange, ContentOnClick, ContentOption, ContentOptionStruct } from './types'
+import { ContentsItem } from './contents-item'
+import { useContentsOptions, useContentsActiveInfo } from './hooks'
+import type { ContentsOnChange, ContentsOnClick, ContentsOption, ContentsOptionStruct } from './types'
 
-export interface ContentProps<T> {
+export interface ContentsProps<T> {
   /** 类名 */
   className?: string
   /** 样式 */
@@ -14,20 +14,20 @@ export interface ContentProps<T> {
   /** 已选值 */
   value?: T
   /** 选项 */
-  options?: ContentOption<T>[] | ContentOptionStruct<T>
+  options?: ContentsOption<T>[] | ContentsOptionStruct<T>
   /** 禁止修改 */
   disabled?: boolean
   /** 点击项（包括非叶子节点） */
-  onClick?: ContentOnClick<T>
+  onClick?: ContentsOnClick<T>
   /** 改变已选值（仅仅针对叶子节点） */
-  onChange?: ContentOnChange<T>
+  onChange?: ContentsOnChange<T>
 }
 
-export interface ContentRef {
+export interface ContentsRef {
   rootNode: HTMLDivElement | null
 }
 
-export const Content = forwardRef<ContentRef, ContentProps<any>>(({
+export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
   className,
   style,
   name,
@@ -39,8 +39,8 @@ export const Content = forwardRef<ContentRef, ContentProps<any>>(({
 }, ref) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const expands = useMemo(() => loadExpands(name), [name])
-  const options = useContentOptions(props.options)
-  const [active, actives] = useContentActiveInfo(value, options)
+  const options = useContentsOptions(props.options)
+  const [active, actives] = useContentsActiveInfo(value, options)
 
   useImperativeHandle(ref, () => ({
     rootNode: rootRef.current
@@ -53,7 +53,7 @@ export const Content = forwardRef<ContentRef, ContentProps<any>>(({
       className={className}
     >
       {options.tree.map((option, index) => (
-        <ContentItem
+        <ContentsItem
           key={index}
           name={name}
           disabled={disabled}

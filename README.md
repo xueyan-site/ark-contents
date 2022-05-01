@@ -1,10 +1,10 @@
-# xueyan-react-content
+# xueyan-react-contents
 
-React content component
+React contents component
 
 ## Document
 
-Please see <https://xueyan.site/xueyan-react-content>.
+Please see <https://xueyan.site/xueyan-react-contents>.
 
 ## Develop
 

@@ -1,26 +1,26 @@
 import { useMemo } from 'react'
-import { parseContentOptions } from './utils'
-import { ContentOption, ContentOptionStruct, ContentProOption } from "./types"
+import { parseContentsOptions } from './utils'
+import { ContentsOption, ContentsOptionStruct, ContentsProOption } from "./types"
 
-export function useContentOptions<T>(
-  options?: ContentOption<T>[] | ContentOptionStruct<T>
-): ContentOptionStruct<T> {
+export function useContentsOptions<T>(
+  options?: ContentsOption<T>[] | ContentsOptionStruct<T>
+): ContentsOptionStruct<T> {
   return useMemo(() => {
     if (!options || Array.isArray(options)) {
-      return parseContentOptions(options)
+      return parseContentsOptions(options)
     } else {
       return options
     }
   }, [options])
 }
 
-export function useContentActiveInfo<T>(
+export function useContentsActiveInfo<T>(
   value: T | undefined,
-  options: ContentOptionStruct<T>
+  options: ContentsOptionStruct<T>
 ) {
   return useMemo<[
-    ContentProOption<T> | undefined, 
-    ContentProOption<T>[]]
+    ContentsProOption<T> | undefined, 
+    ContentsProOption<T>[]]
   >(() => {
     const active = value ? options.map.get(value) : undefined
     const actives = active ? [...active.parents, active] : []

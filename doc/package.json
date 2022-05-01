@@ -1,8 +1,8 @@
 {
-  "name": "xueyan-react-content-doc",
+  "name": "xueyan-react-contents-doc",
   "version": "1.0.0",
   "author": "xueyan-site <xueyan@xueyan.site>",
-  "description": "xueyan-react-content document",
+  "description": "xueyan-react-contents document",
   "private": true,
   "scripts": {
     "start": "xt start",

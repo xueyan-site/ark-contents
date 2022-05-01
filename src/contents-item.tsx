@@ -1,18 +1,18 @@
 import React, { Fragment, useState } from 'react'
 import cn from 'classnames'
-import styles from './content-item.scss'
+import styles from './contents-item.scss'
 import { Link } from 'xueyan-react-link'
 import { DirectionIcon } from 'xueyan-react-icon'
 import { ExpandTransition } from 'xueyan-react-transition'
 import { saveExpand } from './utils'
 import type { 
-  ContentOnChange, 
-  ContentOnClick, 
-  ContentOptionStruct, 
-  ContentProOption 
+  ContentsOnChange, 
+  ContentsOnClick, 
+  ContentsOptionStruct, 
+  ContentsProOption 
 } from './types'
 
-export function ContentItem<T>({
+export function ContentsItem<T>({
   name,
   option,
   active,
@@ -25,13 +25,13 @@ export function ContentItem<T>({
 }: {
   name?: string
   disabled?: boolean
-  option: ContentProOption<T>
-  active?: ContentProOption<T>
-  options: ContentOptionStruct<T>
-  actives: ContentProOption<T>[]
+  option: ContentsProOption<T>
+  active?: ContentsProOption<T>
+  options: ContentsOptionStruct<T>
+  actives: ContentsProOption<T>[]
   expands: Record<string, boolean>
-  onClick?: ContentOnClick<T>
-  onChange?: ContentOnChange<T>
+  onClick?: ContentsOnClick<T>
+  onChange?: ContentsOnChange<T>
 }) {
   const disabled = option.disabled || props.disabled
   const level = option.parents.length
@@ -45,7 +45,7 @@ export function ContentItem<T>({
   return (
     <Fragment>
       <div
-        className={cn(styles.xrcontentitem, {
+        className={cn(styles.xrcontentsitem, {
           [styles.active]: inActive && (isActive || expand),
           [styles.disabled]: disabled,
         })}
@@ -93,7 +93,7 @@ export function ContentItem<T>({
       {hasChildren && (
         <ExpandTransition value={expand}>
           {option.children.map((option, index) => (
-            <ContentItem
+            <ContentsItem
               key={index}
               name={name}
               disabled={disabled}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Content } from 'xueyan-react-content'
-import type { ContentOption } from 'xueyan-react-content'
+import { Contents } from 'xueyan-react-contents'
+import type { ContentsOption } from 'xueyan-react-contents'
 import { SwitchTheme } from 'xueyan-react-style'
 import { LabelLineIcon, ScanIcon } from 'xueyan-react-icon'
 
-const options: ContentOption<number>[] = [
+const options: ContentsOption<number>[] = [
   {
     label: '选项一',
     value: 1
@@ -54,7 +54,7 @@ export default function Main() {
     <div style={{ background: 'var(--back)' }}>
       <SwitchTheme/>
       <div onClick={() => setDisabled(!disabled)}>{disabled ? '解除禁用' : '禁用'}</div>
-      <Content 
+      <Contents 
         style={{ width: '200px' }}
         value={value}
         options={options} 

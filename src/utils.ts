@@ -1,18 +1,18 @@
-import { ContentOption, ContentProOption, ContentOptionStruct } from './types'
+import { ContentsOption, ContentsProOption, ContentsOptionStruct } from './types'
 
-export function parseContentOptions<T >(
-  options?: ContentOption<T>[]
-): ContentOptionStruct<T> {
-  const map: Map<T, ContentProOption<T>> = new Map()
-  const leafs: ContentProOption<T>[] = []
+export function parseContentsOptions<T >(
+  options?: ContentsOption<T>[]
+): ContentsOptionStruct<T> {
+  const map: Map<T, ContentsProOption<T>> = new Map()
+  const leafs: ContentsProOption<T>[] = []
   const parse = (
-    list: ContentOption<T>[], 
-    parents: ContentProOption<T>[]
-  ): ContentProOption<T>[] => {
-    const nodes: ContentProOption<T>[] = []
+    list: ContentsOption<T>[], 
+    parents: ContentsProOption<T>[]
+  ): ContentsProOption<T>[] => {
+    const nodes: ContentsProOption<T>[] = []
     list.forEach(item => {
       if (!map.get(item.value)) {
-        const node: ContentProOption<T> = { 
+        const node: ContentsProOption<T> = { 
           ...item,
           parents,
           children: []
@@ -82,7 +82,7 @@ export function saveExpands(
 
 export function saveExpand<T>(
   name: string | undefined,
-  option: ContentProOption<T>,
+  option: ContentsProOption<T>,
   expand: boolean
 ) {
   const expands = loadExpands(name)

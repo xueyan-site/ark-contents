@@ -1,14 +1,14 @@
 import 'xueyan-react-style'
 
-export { Content } from './content'
-export { parseContentOptions } from './utils'
-export { useContentOptions, useContentActiveInfo } from './hooks'
+export { Contents } from './contents'
+export { parseContentsOptions } from './utils'
+export { useContentsOptions, useContentsActiveInfo } from './hooks'
 
-export type { ContentRef, ContentProps } from './content'
+export type { ContentsRef, ContentsProps } from './contents'
 export type { 
-  ContentOption, 
-  ContentProOption, 
-  ContentOptionStruct,
-  ContentOnChange,
-  ContentOnClick
+  ContentsOption, 
+  ContentsProOption, 
+  ContentsOptionStruct,
+  ContentsOnChange,
+  ContentsOnClick
 } from './types'

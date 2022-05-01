@@ -1,6 +1,6 @@
 import { LinkProps } from 'xueyan-react-link'
 
-export interface ContentOption<T> 
+export interface ContentsOption<T> 
   extends Omit<LinkProps, 'children'>, Record<string, any> {
   /** 文本内容 */
   label?: React.ReactNode
@@ -9,36 +9,36 @@ export interface ContentOption<T>
   /** 禁用项 */
   disabled?: boolean
   /** 子节点 */
-  children?: ContentOption<T>[]
+  children?: ContentsOption<T>[]
 }
 
-export interface ContentProOption<T> 
-  extends ContentOption<T> {
+export interface ContentsProOption<T> 
+  extends ContentsOption<T> {
   /** 子节点 */
-  children: ContentProOption<T>[]
+  children: ContentsProOption<T>[]
   /** 父节点 */
-  parents: ContentProOption<T>[]
+  parents: ContentsProOption<T>[]
   /** 上一级节点 */
-  prev?: ContentProOption<T>
+  prev?: ContentsProOption<T>
   /** 下一级节点 */
-  next?: ContentProOption<T>
+  next?: ContentsProOption<T>
 }
 
-export interface ContentOptionStruct<T> {
-  map: Map<T, ContentProOption<T>>
-  tree: ContentProOption<T>[]
-  leafs: ContentProOption<T>[]
+export interface ContentsOptionStruct<T> {
+  map: Map<T, ContentsProOption<T>>
+  tree: ContentsProOption<T>[]
+  leafs: ContentsProOption<T>[]
 }
 
-export type ContentOnClick<T> = (
+export type ContentsOnClick<T> = (
   event: React.MouseEvent<HTMLElement, MouseEvent>, 
   value: T, 
-  option: ContentProOption<T>,
-  options: ContentOptionStruct<T>
+  option: ContentsProOption<T>,
+  options: ContentsOptionStruct<T>
 ) => void
 
-export type ContentOnChange<T> = (
+export type ContentsOnChange<T> = (
   value?: T, 
-  option?: ContentProOption<T>,
-  options?: ContentOptionStruct<T>
+  option?: ContentsProOption<T>,
+  options?: ContentsOptionStruct<T>
 ) => void
