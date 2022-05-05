@@ -57,7 +57,6 @@ export function loadExpands(
       return {}
     }
   } catch (err) {
-    console.log(err)
     return {}
   }
 }
@@ -75,7 +74,6 @@ export function saveExpands(
     }
     return true
   } catch (err) {
-    console.log(err)
     return false
   }
 }
@@ -87,7 +85,5 @@ export function saveExpand<T>(
 ) {
   const expands = loadExpands(name)
   expands[String(option.value)] = expand
-
-  console.log(expands)
   return saveExpands(name, expands)
 }

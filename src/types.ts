@@ -30,15 +30,15 @@ export interface ContentsOptionStruct<T> {
   leafs: ContentsProOption<T>[]
 }
 
-export type ContentsOnClick<T> = (
-  event: React.MouseEvent<HTMLElement, MouseEvent>, 
+export type ContentsOnChange<T> = (
   value: T, 
   option: ContentsProOption<T>,
   options: ContentsOptionStruct<T>
 ) => void
 
-export type ContentsOnChange<T> = (
-  value?: T, 
-  option?: ContentsProOption<T>,
-  options?: ContentsOptionStruct<T>
+export type ContentsOnClick<T> = (
+  event: React.MouseEvent<HTMLElement, MouseEvent>, 
+  value: T, 
+  option: ContentsProOption<T>,
+  options: ContentsOptionStruct<T>
 ) => void

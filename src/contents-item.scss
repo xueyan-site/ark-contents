@@ -23,7 +23,7 @@
   .line {
     width: 1px;
     height: 100%;
-    background-color: var(--alpha5);
+    background-color: var(--area2);
   }
   .label {
     flex: 1;
@@ -31,15 +31,16 @@
     min-width: 0;
   }
   &:hover {
-    background-color: var(--main5);
+    background-color: var(--main1);
   }
   &.active {
     color: var(--main);
-    background-color: var(--main4);
+    background-color: var(--main2);
   }
   &.disabled {
-    color: var(--font3);
-    background-color: var(--beta5);
+    background-color: var(--area1);
+    color: var(--font2);
+    cursor: not-allowed;
     &.active {
       color: var(--main);
     }

@@ -51,15 +51,21 @@ export default function Main() {
   const [disabled, setDisabled] = useState<boolean>(false)
 
   return (
-    <div style={{ background: 'var(--back)' }}>
+    <div style={{ background: 'var(--base)', padding: '16px' }}>
       <SwitchTheme/>
-      <div onClick={() => setDisabled(!disabled)}>{disabled ? '解除禁用' : '禁用'}</div>
+      <div 
+        onClick={() => setDisabled(!disabled)}
+        style={{ color: 'var(--font)', marginTop: '16px' }}
+      >{disabled ? '解除禁用' : '禁用'}</div>
       <Contents 
-        style={{ width: '200px' }}
+        style={{ width: '200px', marginTop: '16px' }}
         value={value}
         options={options} 
         disabled={disabled}
-        onChange={value => setValue(value)}
+        onChange={(value, option) => {
+          setValue(value)
+          console.log(option?.label)
+        }}
       />
     </div>
   )
