@@ -1,5 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
-import { debounce } from 'lodash'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { parseContentsOptions, searchContentOptions } from './utils'
 import type { ContentsOption, ContentsOptionStruct, ContentsProOption } from "./types"
 
@@ -29,8 +28,6 @@ export function useContentsActiveInfo<T>(
   }, [value, options])
 }
 
-const setCurOptsDebounce = debounce((fn: () => void) => fn(), 500)
-
 export function useContentsKeyword<T>(
   value: T | undefined,
   options: ContentsOptionStruct<T>
@@ -41,15 +38,22 @@ export function useContentsKeyword<T>(
 ] {
   const [keyword, setKeyword] = useState<string>()
   const [curOpts, setCurOpts] = useState<ContentsOptionStruct<T>>(options)
+  const prevRef = useRef<any>()
   useEffect(() => {
-    setCurOptsDebounce(() => {
-      if (!keyword) {
-        setCurOpts(options)
-      } else {
+    const prev = prevRef.current
+    prevRef.current = options
+    if (prev !== options) {
+      setKeyword('')
+      return setCurOpts(options)
+    } else if (!keyword) {
+      return setCurOpts(options)
+    } else {
+      const timer = setTimeout(() => {
         const o = searchContentOptions(value, keyword, options)
         setCurOpts(o.tree.length <= 0 ? options : o)
-      }
-    })
-  }, [keyword, options])
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+  }, [value, keyword, options])
   return [curOpts, keyword, setKeyword]
 }

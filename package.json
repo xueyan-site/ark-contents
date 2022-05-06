@@ -1,6 +1,6 @@
 {
   "name": "xueyan-react-contents",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "react contents component",
@@ -35,14 +35,11 @@
   },
   "peerDependencies": {
     "classnames": "^2.3.0",
-    "lodash": "^4.14.0",
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.0",
     "@types/react": ">=16.8.0",
     "classnames": "^2.3.0",
-    "lodash": "^4.14.0",
     "react": ">=16.8.0",
     "typescript": "^4.0.0"
   }

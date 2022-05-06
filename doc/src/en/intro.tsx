@@ -55,20 +55,28 @@ const options: ContentsOption<number>[] = [
 ]
 
 export default function Main() {
+  const [opts, setOpts] = useState(options)
   const [value, setValue] = useState<number|undefined>(6)
   const [disabled, setDisabled] = useState<boolean>(false)
 
   return (
     <div style={{ background: 'var(--base)', padding: '16px' }}>
-      <SwitchTheme/>
+      <SwitchTheme style={{ marginBottom: '16px' }}/>
+      <div 
+        style={{ color: 'var(--font)', marginBottom: '16px' }}
+        onClick={() => setOpts(opts !== options ? options : [{
+          label: '选项五',
+          value: 4
+        }])}
+      >切换</div>
       <div 
         onClick={() => setDisabled(!disabled)}
-        style={{ color: 'var(--font)', marginTop: '16px' }}
+        style={{ color: 'var(--font)', marginBottom: '16px' }}
       >{disabled ? '解除禁用' : '禁用'}</div>
       <Contents 
-        style={{ width: '200px', marginTop: '16px' }}
+        style={{ width: '200px' }}
         value={value}
-        options={options} 
+        options={opts} 
         disabled={disabled}
         onChange={(value, option) => {
           setValue(value)
