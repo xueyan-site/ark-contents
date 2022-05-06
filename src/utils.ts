@@ -1,26 +1,44 @@
+import React, { Children, isValidElement } from 'react'
 import { ContentsOption, ContentsProOption, ContentsOptionStruct } from './types'
 
-export function parseContentsOptions<T >(
-  options?: ContentsOption<T>[]
+function reactNodeToString(node: React.ReactNode) {
+  const iterator = (text: string, node: React.ReactNode): string => {
+    if (node) {
+      if (typeof node === 'string') {
+        return text + node
+      }
+      if (isValidElement(node)) {
+        const nodes = Children.toArray(node.props.children)
+        return nodes.reduce(iterator, text)
+      }
+    }
+    return text
+  }
+  return Children.toArray(node).reduce(iterator, '')
+}
+
+export function parseContentsOptions<T>(
+  options?: ContentsOption<T>[],
 ): ContentsOptionStruct<T> {
   const map: Map<T, ContentsProOption<T>> = new Map()
   const leafs: ContentsProOption<T>[] = []
-  const parse = (
+  const iterator = (
     list: ContentsOption<T>[], 
     parents: ContentsProOption<T>[]
   ): ContentsProOption<T>[] => {
     const nodes: ContentsProOption<T>[] = []
     list.forEach(item => {
       if (!map.get(item.value)) {
-        const node: ContentsProOption<T> = { 
+        const node: ContentsProOption<T> = {
           ...item,
           parents,
-          children: []
+          children: [],
+          keywords: reactNodeToString(item.label) + item.value
         }
         map.set(node.value, node)
         nodes.push(node)
         if (item.children && item.children.length > 0) {
-          node.children = parse(item.children, [...parents, node])
+          node.children = iterator(item.children, [...parents, node])
         } else {
           leafs.push(node)
         }
@@ -28,7 +46,7 @@ export function parseContentsOptions<T >(
     })
     return nodes
   }
-  const tree = parse(options || [], [])
+  const tree = iterator(options || [], [])
   leafs.reduce((prev, next) => {
     prev.next = next
     next.prev = prev
@@ -38,6 +56,36 @@ export function parseContentsOptions<T >(
     map,
     tree,
     leafs,
+  }
+}
+
+export function searchContentOptions<T>(
+  value: T | undefined,
+  keyword: string,
+  contents: ContentsOptionStruct<T>
+): ContentsOptionStruct<T> {
+  const iterator = (list: ContentsProOption<T>[]): ContentsProOption<T>[] => {
+    const nodes: ContentsProOption<T>[] = []
+    list.forEach(item => {
+      const node: ContentsProOption<T> = { ...item }
+      if (
+        item.value === value || 
+        item.keywords.includes(keyword)
+      ) {
+        nodes.push(node)
+      } else {
+        const children = iterator(item.children)
+        if (children.length > 0) {
+          node.children = children
+          nodes.push(node)
+        }
+      }
+    })
+    return nodes
+  }
+  return {
+    ...contents,
+    tree: iterator(contents.tree)
   }
 }
 

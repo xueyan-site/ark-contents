@@ -14,6 +14,8 @@ export interface ContentsOption<T>
 
 export interface ContentsProOption<T> 
   extends ContentsOption<T> {
+  /** 用于搜索的关键字 */
+  keywords: string
   /** 子节点 */
   children: ContentsProOption<T>[]
   /** 父节点 */

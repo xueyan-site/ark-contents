@@ -1,7 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import { Input } from 'xueyan-react-input'
 import { loadExpands } from './utils'
 import { ContentsItem } from './contents-item'
-import { useContentsOptions, useContentsActiveInfo } from './hooks'
+import { useContentsOptions, useContentsActiveInfo, useContentsKeyword } from './hooks'
 import type { ContentsOnChange, ContentsOnClick, ContentsOption, ContentsOptionStruct } from './types'
 
 export interface ContentsProps<T> {
@@ -39,8 +40,9 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
 }, ref) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const expands = useMemo(() => loadExpands(name), [name])
-  const options = useContentsOptions(props.options)
-  const [active, actives] = useContentsActiveInfo(value, options)
+  const _options = useContentsOptions(props.options)
+  const [active, actives] = useContentsActiveInfo(value, _options)
+  const [options, keyword, setKeyword] = useContentsKeyword(value, _options)
 
   useImperativeHandle(ref, () => ({
     rootNode: rootRef.current
@@ -52,6 +54,15 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
       style={style}
       className={className}
     >
+      {_options.tree.length > 0 && (
+        <Input
+          placeholder="search"
+          value={keyword}
+          onChange={setKeyword}
+          onClear={() => setKeyword('')}
+          style={{ marginBottom: '8px' }}
+        />
+      )}
       {options.tree.map((option, index) => (
         <ContentsItem
           key={index}

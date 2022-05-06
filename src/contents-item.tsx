@@ -35,8 +35,8 @@ export function ContentsItem<T>({
 }) {
   const disabled = option.disabled || props.disabled
   const level = option.parents.length
-  const isActive = active === option
-  const inActive = actives[level] === option
+  const isActive = active?.value === option.value
+  const inActive = actives[level]?.value === option.value
   const hasChildren = option.children.length > 0
   const [expand, setExpand] = useState(
     inActive || expands[String(option.value)]

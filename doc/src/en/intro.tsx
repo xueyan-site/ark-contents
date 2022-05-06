@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Contents } from 'xueyan-react-contents'
 import type { ContentsOption } from 'xueyan-react-contents'
 import { SwitchTheme } from 'xueyan-react-style'
@@ -41,8 +41,16 @@ const options: ContentsOption<number>[] = [
     value: 4
   },
   {
-    label: '选项六',
-    value: 5
+    value: 5,
+    label: (
+      <Fragment>
+        <LabelLineIcon style={{ 
+          verticalAlign: 'text-bottom', 
+          marginRight: '4px' 
+        }}/>
+        <span>选项六</span>
+      </Fragment>
+    )
   }
 ]
 
@@ -64,7 +72,7 @@ export default function Main() {
         disabled={disabled}
         onChange={(value, option) => {
           setValue(value)
-          console.log(option?.label)
+          console.log(option)
         }}
       />
     </div>
