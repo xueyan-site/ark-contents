@@ -6,42 +6,42 @@ import { LabelLineIcon, ScanIcon } from 'xueyan-react-icon'
 
 const options: ContentsOption<number>[] = [
   {
+    value: 1,
     label: '选项一',
-    value: 1
   },
   {
-    label: '选项三',
     value: 2,
+    label: '选项二',
     disabled: true
   },
   {
-    label: '选项三选项三选项三选项三选项三选项三选项三选项三',
-    value: 6,
-    disabled: true
-  },
-  {
-    label: '选项四',
     value: 3,
+    label: '选项三选项三选项三选项三选项三选项三选项三选项三',
+    disabled: true
+  },
+  {
+    value: 4,
+    label: '选项四',
     icon: <ScanIcon/>,
     children: [
       {
-        label: 'xxx',
-        value: 66,
+        value: 41,
+        label: '子选项一',
         icon: <LabelLineIcon/>,
         href: 'https://baidu.com'
       },
       {
-        label: '',
-        value: 66
+        value: 42,
+        label: '子选项二',
       }
     ]
   },
   {
+    value: 5,
     label: '选项五',
-    value: 4
   },
   {
-    value: 5,
+    value: 6,
     label: (
       <Fragment>
         <LabelLineIcon style={{ 
@@ -56,7 +56,7 @@ const options: ContentsOption<number>[] = [
 
 export default function Main() {
   const [opts, setOpts] = useState(options)
-  const [value, setValue] = useState<number|undefined>(6)
+  const [value, setValue] = useState<number|undefined>(42)
   const [disabled, setDisabled] = useState<boolean>(false)
 
   return (

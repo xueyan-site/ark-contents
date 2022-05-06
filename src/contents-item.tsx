@@ -46,10 +46,10 @@ export function ContentsItem<T>({
     <Fragment>
       <div
         className={cn(styles.xrcontentsitem, {
-          [styles.active]: inActive && (isActive || expand),
+          [styles.active]: isActive || (inActive && !expand),
           [styles.disabled]: disabled,
         })}
-        style={{ 
+        style={{
           paddingLeft: level * 12
         }}
         onClick={hasChildren ? (() => {
