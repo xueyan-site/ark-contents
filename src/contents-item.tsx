@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react'
 import cn from 'classnames'
 import styles from './contents-item.scss'
-import { Link } from 'xueyan-react-link'
+import { LabelLink } from 'xueyan-react-link'
 import { DirectionIcon } from 'xueyan-react-icon'
 import { ExpandTransition } from 'xueyan-react-transition'
 import { saveExpand } from './utils'
 import type { 
+  ContentsGetHref,
   ContentsOnChange, 
   ContentsOnClick, 
   ContentsOptionStruct, 
@@ -19,6 +20,7 @@ export function ContentsItem<T>({
   options,
   actives,
   expands,
+  getHref,
   onClick,
   onChange,
   ...props
@@ -30,6 +32,7 @@ export function ContentsItem<T>({
   options: ContentsOptionStruct<T>
   actives: ContentsProOption<T>[]
   expands: Record<string, boolean>
+  getHref?: ContentsGetHref<T>
   onClick?: ContentsOnClick<T>
   onChange?: ContentsOnChange<T>
 }) {
@@ -64,8 +67,11 @@ export function ContentsItem<T>({
             <div className={styles.line}/>
           )}
         </div>
-        <Link
+        <LabelLink
           {...option}
+          disabled={disabled}
+          className={cn(styles.label, option.className)}
+          href={getHref ? getHref(option, options) : option.href}
           ellipsis={{
             ...option.ellipsis,
             popover: {
@@ -73,22 +79,20 @@ export function ContentsItem<T>({
               keepStyle: 1,
             }
           }}
-          className={cn(styles.label, option.className)}
           onClick={event => {
             if (option.onClick) {
-              option.onClick(event)
-            } else {
-              if (onClick) {
-                onClick(event, option.value, option, options)
-              }
-              if (onChange && !hasChildren && !disabled && !option.href) {
-                onChange(option.value, option, options)
-              }
+              return option.onClick(event)
+            }
+            if (onClick) {
+              onClick(event, option.value, option, options)
+            }
+            if (onChange && !hasChildren) {
+              onChange(option.value, option, options)
             }
           }}
         >
           {option.label}
-        </Link>
+        </LabelLink>
       </div>
       {hasChildren && (
         <ExpandTransition value={expand}>
@@ -102,6 +106,7 @@ export function ContentsItem<T>({
               options={options}
               actives={actives}
               expands={expands}
+              getHref={getHref}
               onClick={onClick}
               onChange={onChange}
             />

@@ -10,5 +10,6 @@ export type {
   ContentsProOption, 
   ContentsOptionStruct,
   ContentsOnChange,
-  ContentsOnClick
+  ContentsOnClick,
+  ContentsGetHref
 } from './types'

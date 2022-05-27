@@ -3,7 +3,7 @@ import { Input } from 'xueyan-react-input'
 import { loadExpands } from './utils'
 import { ContentsItem } from './contents-item'
 import { useContentsOptions, useContentsActiveInfo, useContentsKeyword } from './hooks'
-import type { ContentsOnChange, ContentsOnClick, ContentsOption, ContentsOptionStruct } from './types'
+import type { ContentsGetHref, ContentsOnChange, ContentsOnClick, ContentsOption, ContentsOptionStruct } from './types'
 
 export interface ContentsProps<T> {
   /** 类名 */
@@ -18,6 +18,8 @@ export interface ContentsProps<T> {
   options?: ContentsOption<T>[] | ContentsOptionStruct<T>
   /** 禁止修改 */
   disabled?: boolean
+  /** 统一生成链接 */
+  getHref?: ContentsGetHref<T>
   /** 点击项（包括非叶子节点） */
   onClick?: ContentsOnClick<T>
   /** 改变已选值（仅仅针对叶子节点） */
@@ -34,6 +36,7 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
   name,
   value,
   disabled,
+  getHref,
   onChange,
   onClick,
   ...props
@@ -73,6 +76,7 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
           options={options}
           actives={actives}
           expands={expands}
+          getHref={getHref}
           onClick={onClick}
           onChange={onChange}
         />

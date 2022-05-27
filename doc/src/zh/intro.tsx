@@ -56,7 +56,7 @@ const options: ContentsOption<number>[] = [
 
 export default function Main() {
   const [opts, setOpts] = useState(options)
-  const [value, setValue] = useState<number|undefined>(42)
+  const [value, setValue] = useState<number|undefined>(3)
   const [disabled, setDisabled] = useState<boolean>(false)
 
   return (
@@ -81,6 +81,9 @@ export default function Main() {
         onChange={(value, option) => {
           setValue(value)
           console.log(option)
+        }}
+        getHref={option => {
+          return '#' + option.label
         }}
       />
     </div>

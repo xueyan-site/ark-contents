@@ -1,7 +1,9 @@
-import { LinkProps } from 'xueyan-react-link'
+import { LabelLinkProps } from 'xueyan-react-link'
 
 export interface ContentsOption<T> 
-  extends Omit<LinkProps, 'children'>, Record<string, any> {
+  extends Omit<LabelLinkProps, 'children'>, 
+  Record<string, any>
+{
   /** 文本内容 */
   label?: React.ReactNode
   /** 选项值 */
@@ -12,8 +14,7 @@ export interface ContentsOption<T>
   children?: ContentsOption<T>[]
 }
 
-export interface ContentsProOption<T> 
-  extends ContentsOption<T> {
+export interface ContentsProOption<T> extends ContentsOption<T> {
   /** 用于搜索的关键字 */
   keywords: string
   /** 子节点 */
@@ -44,3 +45,8 @@ export type ContentsOnClick<T> = (
   option: ContentsProOption<T>,
   options: ContentsOptionStruct<T>
 ) => void
+
+export type ContentsGetHref<T> = (
+  option: ContentsProOption<T>,
+  options: ContentsOptionStruct<T>
+) => LabelLinkProps['href']
