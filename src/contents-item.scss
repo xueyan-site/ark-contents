@@ -29,6 +29,7 @@
     flex: 1;
     height: 32px;
     min-width: 0;
+    color: inherit !important;
   }
   &:hover {
     background-color: var(--main1);
