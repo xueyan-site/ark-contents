@@ -2,28 +2,28 @@ import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import { Input } from 'xueyan-react-input'
 import { loadExpands } from './utils'
 import { ContentsItem } from './contents-item'
+import { ContentsItemPresetProvider } from './contents-item-preset'
 import { useContentsOptions, useContentsActiveInfo, useContentsKeyword } from './hooks'
-import type { ContentsGetHref, ContentsOnChange, ContentsOnClick, ContentsOption, ContentsOptionStruct } from './types'
+import type { ContentsItemPreset } from './contents-item-preset'
+import type { ContentsOption, ContentsOptionStruct } from './types'
 
-export interface ContentsProps<T> {
+export interface ContentsProps<T> extends Pick<
+  ContentsItemPreset<T>,
+  | 'name'
+  | 'option'
+  | 'disabled'
+  | 'getHref'
+  | 'onClick'
+  | 'onChange'
+> {
   /** 类名 */
   className?: string
   /** 样式 */
   style?: React.CSSProperties
-  /** 目录名 */
-  name?: string
   /** 已选值 */
   value?: T
   /** 选项 */
   options?: ContentsOption<T>[] | ContentsOptionStruct<T>
-  /** 禁止修改 */
-  disabled?: boolean
-  /** 统一生成链接 */
-  getHref?: ContentsGetHref<T>
-  /** 点击项（包括非叶子节点） */
-  onClick?: ContentsOnClick<T>
-  /** 改变已选值（仅仅针对叶子节点） */
-  onChange?: ContentsOnChange<T>
 }
 
 export interface ContentsRef {
@@ -35,6 +35,7 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
   style,
   name,
   value,
+  option,
   disabled,
   getHref,
   onChange,
@@ -52,35 +53,38 @@ export const Contents = forwardRef<ContentsRef, ContentsProps<any>>(({
   }), [rootRef.current])
 
   return (
-    <div
-      ref={rootRef}
-      style={style}
-      className={className}
+    <ContentsItemPresetProvider
+      value={{
+        name,
+        disabled,
+        option,
+        options,
+        active,
+        actives,
+        expands,
+        getHref, 
+        onClick, 
+        onChange
+      }}
     >
-      {_options.tree.length > 0 && (
-        <Input
-          placeholder="search"
-          value={keyword}
-          onChange={setKeyword}
-          onClear={() => setKeyword('')}
-          style={{ marginBottom: '8px' }}
-        />
-      )}
-      {options.tree.map((option, index) => (
-        <ContentsItem
-          key={index}
-          name={name}
-          disabled={disabled}
-          option={option}
-          active={active}
-          options={options}
-          actives={actives}
-          expands={expands}
-          getHref={getHref}
-          onClick={onClick}
-          onChange={onChange}
-        />
-      ))}
-    </div>
+      <div
+        ref={rootRef}
+        style={style}
+        className={className}
+      >
+        {_options.tree.length > 0 && (
+          <Input
+            placeholder="search"
+            value={keyword}
+            onChange={setKeyword}
+            onClear={() => setKeyword('')}
+            style={{ marginBottom: '8px' }}
+          />
+        )}
+        {options.tree.map((option, index) => (
+          <ContentsItem key={index} option={option} />
+        ))}
+      </div>
+    </ContentsItemPresetProvider>
   )
 })

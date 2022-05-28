@@ -4,38 +4,25 @@ import styles from './contents-item.scss'
 import { LabelLink } from 'xueyan-react-link'
 import { DirectionIcon } from 'xueyan-react-icon'
 import { ExpandTransition } from 'xueyan-react-transition'
+import { useContentsItemPreset } from './contents-item-preset'
 import { saveExpand } from './utils'
-import type { 
-  ContentsGetHref,
-  ContentsOnChange, 
-  ContentsOnClick, 
-  ContentsOptionStruct, 
-  ContentsProOption 
-} from './types'
+import type { ContentsProOption  } from './types'
 
-export function ContentsItem<T>({
-  name,
-  option,
-  active,
-  options,
-  actives,
-  expands,
-  getHref,
-  onClick,
-  onChange,
-  ...props
-}: {
-  name?: string
-  disabled?: boolean
+export function ContentsItem<T>(_props: {
   option: ContentsProOption<T>
-  active?: ContentsProOption<T>
-  options: ContentsOptionStruct<T>
-  actives: ContentsProOption<T>[]
-  expands: Record<string, boolean>
-  getHref?: ContentsGetHref<T>
-  onClick?: ContentsOnClick<T>
-  onChange?: ContentsOnChange<T>
 }) {
+  const preset = useContentsItemPreset()
+  const option = { ...preset.option, ..._props.option }
+  const props = { ...preset, ..._props, option }
+  const { 
+    active, 
+    actives, 
+    options,
+    expands,
+    getHref, 
+    onClick, 
+    onChange
+  } = props
   const disabled = option.disabled || props.disabled
   const level = option.parents.length
   const isActive = active?.value === option.value
@@ -44,6 +31,9 @@ export function ContentsItem<T>({
   const [expand, setExpand] = useState(
     inActive || expands[String(option.value)]
   )
+  const href = hasChildren
+    ? undefined
+    : (option.href || (getHref && getHref(option, options)))
 
   return (
     <Fragment>
@@ -57,7 +47,7 @@ export function ContentsItem<T>({
         }}
         onClick={hasChildren ? (() => {
           setExpand(!expand)
-          saveExpand(name, option, !expand)
+          saveExpand(props.name, option, !expand)
         }) : undefined}
       >
         <div className={styles.icon}>
@@ -70,8 +60,9 @@ export function ContentsItem<T>({
         <LabelLink
           {...option}
           disabled={disabled}
+          href={href}
+          target={option.target || '_self'}
           className={cn(styles.label, option.className)}
-          href={getHref ? getHref(option, options) : option.href}
           ellipsis={{
             ...option.ellipsis,
             popover: {
@@ -97,19 +88,7 @@ export function ContentsItem<T>({
       {hasChildren && (
         <ExpandTransition value={expand}>
           {option.children.map((option, index) => (
-            <ContentsItem
-              key={index}
-              name={name}
-              disabled={disabled}
-              option={option}
-              active={active}
-              options={options}
-              actives={actives}
-              expands={expands}
-              getHref={getHref}
-              onClick={onClick}
-              onChange={onChange}
-            />
+            <ContentsItem key={index} option={option} />
           ))}
         </ExpandTransition>
       )}
