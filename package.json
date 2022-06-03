@@ -1,6 +1,6 @@
 {
   "name": "xueyan-react-contents",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "xueyan-site <xueyan@xueyan.site>",
   "license": "LGPL-3.0",
   "description": "react contents component",
@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.0",
-    "xueyan-react-icon": "^1.1.2",
+    "xueyan-react-icon": "^1.1.6",
     "xueyan-react-input": "^1.0.2",
     "xueyan-react-link": "^1.1.3",
-    "xueyan-react-style": "^2.0.2",
-    "xueyan-react-transition": "^1.0.8"
+    "xueyan-react-style": "^2.1.0",
+    "xueyan-react-transition": "^1.0.11"
   },
   "peerDependencies": {
     "classnames": "^2.3.0",

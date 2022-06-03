@@ -9,6 +9,7 @@ module.exports = {
     'com': 'pub/com',
     'utl': 'pub/utl',
     'xueyan-react-contents': '../src',
+    'xueyan-react-icon': '../node_modules/xueyan-react-icon',
     'xueyan-react-style': '../node_modules/xueyan-react-style'
   },
   serve: {
@@ -16,6 +17,7 @@ module.exports = {
   },
   module: {
     externals: {
+      'typescript': 'ts',
       'react': 'React',
       'react-dom': 'ReactDOM',
       'classnames': 'classNames',
@@ -45,36 +47,41 @@ module.exports = {
         key: 'favicon',
         rel: "icon",
         type: "image/png",
-        href: "{{XT_PATH}}favicon.png"
+        href: "{{XT_ASSETS_PATH}}favicon.png"
       }
     ],
     styles: [
       {
         key: 'global',
         rel: 'stylesheet',
-        href: '{{XT_PATH}}global.css'
+        href: '{{XT_ASSETS_PATH}}global.css'
       }
     ],
     scripts: [
       {
+        key: 'typescript',
+        defer: true,
+        src: 'https://xueyan.site/ast/typescript.js'
+      },
+      {
         key: 'react',
         defer: true,
-        src: "https://xueyan.site/react.js"
+        src: "https://xueyan.site/ast/react.js"
       },
       {
         key: 'react-dom',
         defer: true,
-        src: "https://xueyan.site/react-dom.js"
+        src: "https://xueyan.site/ast/react-dom.js"
       },
       {
         key: 'classnames',
         defer: true,
-        src: "https://xueyan.site/classnames.js"
+        src: "https://xueyan.site/ast/classnames.js"
       },
       {
         key: 'lodash',
         defer: true,
-        src: "https://xueyan.site/lodash.js"
+        src: "https://xueyan.site/ast/lodash.js"
       }
     ]
   }

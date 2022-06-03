@@ -30,6 +30,7 @@
     height: 32px;
     min-width: 0;
     color: inherit !important;
+    text-decoration: unset !important;
   }
   &:hover {
     background-color: var(--main1);
