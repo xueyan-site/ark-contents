@@ -1,4 +1,4 @@
-import { LabelLinkProps } from 'xueyan-react-link'
+import { LabelLinkProps } from 'ark-link'
 
 export interface ContentsOption<T> 
   extends Omit<LabelLinkProps, 'children'>, 

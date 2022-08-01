@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
-import { Input } from 'xueyan-react-input'
+import { Input } from 'ark-input'
 import { loadExpands } from './utils'
 import { ContentsItem } from './contents-item'
 import { ContentsItemPresetProvider } from './contents-item-preset'

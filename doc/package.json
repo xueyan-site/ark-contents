@@ -1,8 +1,8 @@
 {
-  "name": "xueyan-react-contents-doc",
+  "name": "ark-contents-doc",
   "version": "1.0.0",
   "author": "xueyan-site <xueyan@xueyan.site>",
-  "description": "xueyan-react-contents document",
+  "description": "ark-contents document",
   "private": true,
   "scripts": {
     "start": "xt start",

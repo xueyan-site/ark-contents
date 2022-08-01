@@ -1,4 +1,4 @@
-import 'xueyan-react-style'
+import 'solor'
 
 export { Contents } from './contents'
 export { parseContentsOptions } from './utils'

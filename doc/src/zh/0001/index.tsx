@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { Article, Segment } from 'xueyan-react-markdown'
 import { Playground } from 'xueyan-react-playground'
 import { LabelLineIcon, ScanIcon } from 'xueyan-react-icon'
-import { Contents } from 'xueyan-react-contents'
+import { Contents } from 'ark-contents'
 
 const MARK1 = `
 目录工具包，专用于书籍、文档、后台菜单等处。
@@ -12,9 +12,9 @@ const MARK1 = `
 
 const code1 = `
 import React, { Fragment, useState } from 'react'
-import { Contents } from 'xueyan-react-contents'
+import { Contents } from 'ark-contents'
 import { LabelLineIcon, ScanIcon } from 'xueyan-react-icon'
-import type { ContentsOption } from 'xueyan-react-contents'
+import type { ContentsOption } from 'ark-contents'
 
 const options: ContentsOption<number>[] = [
   {
