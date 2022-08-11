@@ -1,5 +1,5 @@
 import React from 'react'
-import { Article, Segment } from 'xueyan-react-markdown'
+import { Article, Segment } from 'ark-markdown'
 
 const MARK1 = `
 目录组件
@@ -116,7 +116,7 @@ interface ContentsOption<T> extends
 }
 \`\`\`
 
-> 其他类型：[LabelLinkProps](/xueyan-react-link)
+> 其他类型：[LabelLinkProps](/ark-link)
 
 ## ContentsProOption
 
